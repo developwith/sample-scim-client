@@ -4,6 +4,13 @@ h2. Overview
 This is a simple SCIM client using Sinatra and OAuth2.
 The client is to illustrate how to get a list of users and groups from a SCIM based endpoint.
 
+h2. Starting
+
+
+# Update config.yaml with a scim provider and oauth information
+# Run "ruby scimweb.rb"
+# Go to "http://localhost:4567"
+
 h2. Resources
 
 * http://www.simplecloud.info/specs/draft-scim-core-schema-00.html

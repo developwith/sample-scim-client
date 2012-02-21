@@ -1,0 +1,4 @@
+oauth_server: http://oauthserverhere
+client_id: client_id_here
+client_secret: "client secret key"
+scim_path: http://server/scim/v1/

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>REST/OAuth Example</title>
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <script type="text/javascript" language="javascript">
+      if (window.location.protocol != "http:") {
+      	document.write("OAuth will not work correctly from plain http. "+
+      			"Please use an https URL.");
+      } else {
+      	window.location.href = "<%= @auth_url %>";
+      }
+    </script>
+  </body>
+</html>

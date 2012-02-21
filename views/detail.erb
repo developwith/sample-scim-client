@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Detail</title>
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  	<h1>User Detail</h1>
+  	<table>
+  		<tr><td>User Name:</td><td id="username"><%= @user['userName'] %></td></tr>
+  	</table>
+  	<form action="/action" method="post">
+  		<input type="hidden" name="id" id="id" value="<%= @user['id'] %>" />
+  		<input type="submit" id="delete" name="delete" value="Delete" />
+  		<input type="submit" id="edit" name="edit" value="Edit" />
+  	</form>
+  	<p><a href="/">Home</a></p>
+  </body>
+</html>

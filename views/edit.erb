@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Edit</title>
+		<link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+		<h1 id="header">User Edit</h1>
+		<form id="editform" action="account" method="post">
+			<input type="hidden" name="id" id="id" value="<%= @user['Id'] %>" />
+			<table>
+				<tr><td>Username:</td><td><input name="userName" id="userName" value="<%= @user['userName'] %>"/></td></tr>
+				
+			</table>
+			<br/>
+			<input type="submit" id="action" name="<%= @action_name %>" value="<%= @action_value %>" />
+		</form>
+		<p><a href="/">Home</a></p>
+	</body>
+</html>
