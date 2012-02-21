@@ -1,0 +1,9 @@
+
+h2. Overview
+
+This is a simple SCIM client using Sinatra and OAuth2.
+The client is to illustrate how to get a list of users and groups from a SCIM based endpoint.
+
+h2. Resources
+
+* http://www.simplecloud.info/specs/draft-scim-core-schema-00.html
