@@ -1,3 +1,6 @@
 require 'yaml'
 
-$config = YAML::load(File.join(File.dirname(__FILE__), "../../config.yml"))
+$config = YAML::load_file(File.join(File.dirname(__FILE__), "../config.yaml"))
+$config.each_pair { |key, value|
+  puts "#{key} = #{value}"
+}

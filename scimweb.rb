@@ -12,8 +12,6 @@ require 'lib/scimutil.rb'
 
 $stdout.sync = true
 
-puts $config
-
 # Dalli is a Ruby client for memcache
 def dalli_client
   Dalli::Client.new(nil, :compression => true, :namespace => 'rack.session', :expires_in => 3600)
@@ -23,19 +21,16 @@ end
 use Rack::Session::Dalli, :cache => dalli_client
 
 
-
 get '/' do
-  # Field list isn't very volatile - stash it in the session
-  
-  puts @access_token.get("#{$config['scim_server']}").parsed
-  @users = @access_token.get("#{$config['scim_server']}/Users").parsed
+  puts @access_token.get("#{$config['scim_path']}").parsed
+  @users = @access_token.get("#{$config['scim_path']}Users/").parsed
   puts @users
   
   erb :index
 end
 
 get '/detail' do
-  @user = @access_token.get("#{$config['scim_server']}/Users/#{params[:id]}").parsed
+  @user = @access_token.get("#{$config['scim_path']}Users/#{params[:id]}").parsed
   erb :detail
 end
 
@@ -50,13 +45,13 @@ post '/action' do
     
     done = :edit
   elsif params[:edit]
-    @user = @access_token.get("#{$config['scim_server']}/Users/#{params[:id]}").parsed
+    @user = @access_token.get("#{$config['scim_path']}Users/#{params[:id]}").parsed
     @action_name = 'update'
     @action_value = 'Update'
 
     done = :edit
   elsif params[:delete]
-    @access_token.delete("#{$config['scim_server']}/Users/#{params[:id]}")
+    @access_token.delete("#{$config['scim_path']}Users/#{params[:id]}")
     @action_value = 'Deleted'
     
     @result = Hash.new
@@ -72,7 +67,7 @@ post '/account' do
   if params[:create]
     body = {"userName"   => params[:userName]}.to_json
 
-    @result = @access_token.post("#{$config['scim_server']}/Users/", 
+    @result = @access_token.post("#{$config['scim_path']}Users/", 
       {:body => body, 
        :headers => {'Content-type' => 'application/json'}}).parsed
     @action_value = 'Created'
@@ -80,7 +75,7 @@ post '/account' do
     body = {"userName"   => params[:userName]}.to_json
 
     # No response for an update
-    @access_token.put("#{$config['scim_server']}/Users/#{params[:id]}", 
+    @access_token.put("#{$config['scim_path']}Users/#{params[:id]}", 
       {:body => body, 
        :headers => {'Content-type' => 'application/json'}})
     @action_value = 'Updated'

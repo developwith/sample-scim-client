@@ -5,6 +5,7 @@ require 'json'
 require 'yaml'
 
 
+
 # Set up the OAuth2 client
 def oauth2_client
   OAuth2::Client.new(
@@ -37,7 +38,6 @@ before do
   token         = session['access_token']
   refresh       = session['refresh_token']
   @instance_url = session['instance_url']
-  
   if token
     @access_token = AutoRefreshToken.from_hash(oauth2_client, { :access_token => token, :refresh_token =>  refresh, :header_format => 'OAuth %s' } )
   else
