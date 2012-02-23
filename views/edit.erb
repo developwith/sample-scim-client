@@ -6,10 +6,13 @@
     </head>
     <body>
 		<h1 id="header">User Edit</h1>
-		<form id="editform" action="account" method="post">
-			<input type="hidden" name="id" id="id" value="<%= @user['Id'] %>" />
+		<form id="editform" action="user" method="post">
+			<input type="hidden" name="id" id="id" value="<%= @user['id'] %>" />
 			<table>
 				<tr><td>Username:</td><td><input name="userName" id="userName" value="<%= @user['userName'] %>"/></td></tr>
+				<tr><td>First Name:</td><td><input name="firstName" id="firstName" value="<%= @user['name']['givenName'] %>"/></td></tr>
+				<tr><td>Last Name:</td><td><input name="lastName" id="lastName" value="<%= @user['name']['familyName'] %>"/></td></tr>
+				<tr><td>Email:</td><td><input name="email" id="email" value="<%= @user['emails'][0]['value'] %>"/></td></tr>
 				
 			</table>
 			<br/>

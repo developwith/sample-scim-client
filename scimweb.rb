@@ -22,15 +22,15 @@ use Rack::Session::Dalli, :cache => dalli_client
 
 
 get '/' do
-  puts @access_token.get("#{$config['scim_path']}").parsed
-  @users = @access_token.get("#{$config['scim_path']}Users/").parsed
-  puts @users
-  
+  ## @access_token.get("#{$config['scim_path']}").parsed
+  resultList = @access_token.get("#{$config['scim_path']}Users/").parsed
+  @users = resultList['Resources']
   erb :index
 end
 
 get '/detail' do
   @user = @access_token.get("#{$config['scim_path']}Users/#{params[:id]}").parsed
+  puts @user
   erb :detail
 end
 
@@ -42,6 +42,12 @@ post '/action' do
     @user = Hash.new
     @user['id'] = ''
     @user['userName'] = ''
+    @user['emails'] = []
+    @user['emails'][0] = Hash.new
+    @user['emails'][0]['value'] = ''
+    @user['name'] = Hash.new
+    @user['name']['givenName'] = ''
+    @user['name']['familyName'] = ''
     
     done = :edit
   elsif params[:edit]
@@ -63,17 +69,18 @@ post '/action' do
   erb done
 end
 
-post '/account' do
+post '/user' do
+   body = {"userName"   => params[:userName],
+           "name" => {"givenName"=>params[:firstName],"familyName"=>params[:lastName] },
+           "emails" => [ {"value"=> params[:email]}]
+      }.to_json
+ 
   if params[:create]
-    body = {"userName"   => params[:userName]}.to_json
-
     @result = @access_token.post("#{$config['scim_path']}Users/", 
       {:body => body, 
        :headers => {'Content-type' => 'application/json'}}).parsed
     @action_value = 'Created'
   elsif params[:update]
-    body = {"userName"   => params[:userName]}.to_json
-
     # No response for an update
     @access_token.put("#{$config['scim_path']}Users/#{params[:id]}", 
       {:body => body, 

@@ -6,14 +6,23 @@
   </head>
   <body>
   	<h1>User Detail</h1>
+	<% if @user %>
   	<table>
   		<tr><td>User Name:</td><td id="username"><%= @user['userName'] %></td></tr>
-  	</table>
+		<tr><td>Display Name:</td><td id="displayName"><%= @user['displayName'] %></td></tr>
+		<tr><td>Active:</td><td id="active"><%= @user['active'] %></td></tr>
+		<tr><td>First Name: </td><td id="active"><%= @user['name']['givenName'] %></td></tr>
+		<tr><td>Last Name: </td><td id="active"><%= @user['name']['familyName'] %></td></tr>
+		<tr><td>Nick Name: </td><td id="active"><%= @user['nickName'] %></td></tr>
+	</table>
   	<form action="/action" method="post">
   		<input type="hidden" name="id" id="id" value="<%= @user['id'] %>" />
   		<input type="submit" id="delete" name="delete" value="Delete" />
   		<input type="submit" id="edit" name="edit" value="Edit" />
   	</form>
-  	<p><a href="/">Home</a></p>
+	<% else %>
+	  No user found for that id
+	<% end %>
+	<p><a href="/">Home</a></p>
   </body>
 </html>
